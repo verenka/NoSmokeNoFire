@@ -4,6 +4,7 @@ $(function() {
 
         $.getJSON("js/lokale.json", function (data) {
                 lokale_json = data;
+                sort_lokale();
                 lokaleList();
         });
 
@@ -12,6 +13,7 @@ $(function() {
 //functions go here!
 
 function lokaleList() {
+
         for (var key in lokale_json) {
 
                 if (lokale_json.hasOwnProperty(key)) {
@@ -22,14 +24,12 @@ function lokaleList() {
                                 // are apparently necessary for the function to accept a String
                         + lokal.name
                         + '<span class="ui-li-count">'
-                        + lokal.detail
+                        + lokal.postcode
                         + '</span>' +
                         '</a>' +
                         '</li>').listview('refresh');
                 }
         }
-
-
 }
 
 function getDetail(id) {
@@ -57,4 +57,13 @@ function createMap(id) {
         //putting together map url and passing it as a src attribute inside an img tag
         $('#minimap').html("<img src='" + mapsUrl + "size=" + size + "&markers=" + markers + "&zoom=" + zoom +  "'/>");
 
+}
+
+function sort_lokale() {
+        lokale_json.sort(comparator);
+}
+
+function comparator(a, b) {
+        //this sorts the array of JSON objects by postcode.
+        return parseInt(a["postcode"]) - parseInt(b["postcode"]);
 }

@@ -1,0 +1,12 @@
+home screen:
+
+1. sort list by postcode, then name
+2. implement list divider based on postcode
+
+detail view:
+
+1. parse website and display as proper link
+2. better, interactive map view
+
+nearby view:
+sort by distance to current GPS coordinates
