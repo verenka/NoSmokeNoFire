@@ -18,22 +18,28 @@ function lokaleList() {
 
                 if (lokale_json.hasOwnProperty(key)) {
                         var lokal = lokale_json[key];
-                        $('#lokalelist').append('<li data-theme="d">'
+                        $('#lokalelist').append('<li data-theme="d" postcode="'+ lokal.postcode +'">'
                         + '<a href="#detail" data-transition="slide" onclick="getDetail(' + "'" + key + "'" + ')">'
                                 //These quotation marks cost me an hour of my life I won't get back and
                                 // are apparently necessary for the function to accept a String
                         + lokal.name
-                        + '<span class="ui-li-count">'
-                        + lokal.postcode
-                        + '</span>' +
-                        '</a>' +
-                        '</li>')
+                        + '</a>'
+                            // this here causes the auto-dividers by postcode to work
+                            // now that it works i want collapsible ones!
+                        + '</li>').listview({
+                                autodividers: true,
+                                autodividersSelector: function (li) {
+                                        var out = li.attr("postcode");
+                                        return out;
+                                }
+                        });
                 }
         }
 
         //call list view refresh, so that the list looks nice!
         // don't call it on every single list item or the list will take a minute to load.
-        $('#lokalelist').listview('refresh');
+
+        $("#lokalelist").listview("refresh");
 }
 
 function getDetail(id) {
