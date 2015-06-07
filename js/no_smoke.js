@@ -27,9 +27,13 @@ function lokaleList() {
                         + lokal.postcode
                         + '</span>' +
                         '</a>' +
-                        '</li>').listview('refresh');
+                        '</li>')
                 }
         }
+
+        //call list view refresh, so that the list looks nice!
+        // don't call it on every single list item or the list will take a minute to load.
+        $('#lokalelist').listview('refresh');
 }
 
 function getDetail(id) {
