@@ -1,12 +1,16 @@
 home screen:
 
-1. sort list by postcode, then name
-2. implement list divider based on postcode
+1. sort list by postcode, then name - done
+2. implement list divider based on postcode - done
+3. implement collapsible list dividers - done
+4. make icons show up and start collapsed
 
 detail view:
 
-1. parse website and display as proper link
-2. better, interactive map view
+1. back to overview button (or swipe) with correct listview refresh function
+2. parse website and display as proper link - done
+3. remove website link if there's no URL in details listed
+3. better, interactive map view
 
 nearby view:
-sort by distance to current GPS coordinates
+1. sort by distance to current GPS coordinates

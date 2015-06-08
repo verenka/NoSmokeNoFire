@@ -8,6 +8,9 @@ $(function() {
                 lokaleList();
         });
 
+        //return to overview on swipe to right
+        $( "#detail" ).on( "swiperight", returnHome);
+
 });
 
 //functions go here!
@@ -33,13 +36,47 @@ function lokaleList() {
                                         return out;
                                 }
                         });
+
+                        //code from stackoverflow
+                        //puts collapsible functionality before the divider div
+                        //icons don't show up yet, though
+
+                        var ic = '<div class="ui-icon ui-icon-minus dividerIcon">&nbsp;</div>';
+                        $(".ui-li-divider").prepend(ic);
+                        $(".dividerIcon").addClass("divIconPos");
                 }
         }
 
+        //thanks stackoverflow:
+
+        $(document).on("click", '.ui-li-divider, .dividerIcon', function(e){
+                var IsCollapsed = false;
+                var TheDivider = $(this);
+                if ($(this).hasClass('dividerIcon')){
+                        TheDivider = $(this).parents('.ui-li-divider');
+                }
+
+                var li = TheDivider.next(':not(.ui-li-divider)');
+                while ( li.length > 0 ) {
+                        IsCollapsed = li.css('display') == 'none';
+                        li.toggle();
+                        li = li.next(':not(.ui-li-divider)');
+                }
+
+                if (!IsCollapsed){
+                        TheDivider.find('.dividerIcon').removeClass('ui-icon-minus').addClass('ui-icon-plus');
+                }else{
+                        TheDivider.find('.dividerIcon').removeClass('ui-icon-plus').addClass('ui-icon-minus');
+                }
+                e.stopPropagation();
+                return false;
+        });
+
+
         //call list view refresh, so that the list looks nice!
         // don't call it on every single list item or the list will take a minute to load.
-
         $("#lokalelist").listview("refresh");
+
 }
 
 function getDetail(id) {
@@ -51,8 +88,8 @@ function getDetail(id) {
 
         createMap(id);
 
-
-        // TO DO: Parse url out of details field and append to $('#website')...
+        $('#website').attr("href", "http://" + getURL(id));
+        //TO DO: Remove Website where there is no URL!
 }
 function createMap(id) {
 
@@ -76,4 +113,47 @@ function sort_lokale() {
 function comparator(a, b) {
         //this sorts the array of JSON objects by postcode.
         return parseInt(a["postcode"]) - parseInt(b["postcode"]);
+}
+
+
+// Callback function references the event target and adds the 'swiperight' class to it
+function returnHome() {
+        window.history.back().listview("refresh");
+        // $("#lokalelist").listview("refresh"); --> doesn't appear to make a difference
+}
+
+// holy shit, this is some convoluted parsing mess
+// this function finds a string inside the details field starting with www.
+// then it finds the next blank, comma or new line after the www.
+// if there is none, then it takes everything from www. until the end of details
+// else it looks at the position of the first blank, comma and new line and takes the smallest number
+// and the url is that number of letters, starting from www.
+
+function getURL(id) {
+        var details = lokale_json[id].details;
+        var details_length = details.length;
+        var url_start_position = details.indexOf("www.");
+        var details_from_www = details.substr(url_start_position, details_length-url_start_position);
+        var blank = details_from_www.indexOf(" ");
+        var comma = details_from_www.indexOf(",");
+        var new_line = details_from_www.indexOf("\n");
+        my_array = [];
+        if (blank > -1) {
+                my_array[my_array.length]= blank;
+        }
+        if (comma > -1) {
+                my_array[my_array.length] = comma;
+        }
+        if (new_line > -1) {
+                my_array[my_array.length] = new_line;
+        }
+
+        var finalURL;
+        if (my_array == null) {
+                finalURL = details.substr(url_start_position, details_length-url_start_position);
+        } else {
+                finalURL = details.substr(url_start_position, Math.min.apply(Math, my_array));
+        }
+
+        return finalURL;
 }

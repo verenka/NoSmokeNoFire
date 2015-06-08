@@ -9,6 +9,7 @@
 
   <link href="css/codiqa.ext.min.css" rel="stylesheet">
   <link href="css/jquery.mobile-1.3.1.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 
   <script src="js/jquery-1.9.1.min.js"></script>
   <script src="js/jquery.mobile-1.3.1.min.js"></script>
@@ -24,8 +25,8 @@
           <a data-role="button" href="#closest">
               Lokale in der Nähe
           </a>
-          <h2>Restaurantname - <span class="ui-li-count">Postleitzahl</span></h2>
-          <ul data-role="listview" data-divider-theme="b" data-inset="true" id="lokalelist" data-autodividers="true">
+          <h2>Restaurants nach PLZ</h2>
+          <ul data-role="listview" data-filter="true" data-divider-theme="b" data-inset="true" id="lokalelist" data-autodividers="true">
               <li data-role="list-divider" role="heading">
                   Stadt
               </li>
@@ -68,7 +69,7 @@
               </p>
           </div>
           <div>
-              <a id="website" href="" data-transition="fade">
+              <a id="website" href="" data-transition="fade" target="_blank">
                   Restaurant Website
               </a>
           </div>

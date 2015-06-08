@@ -1,0 +1,8 @@
+.ui-li-divider {
+    padding-left: 28px;
+}
+.divIconPos{
+    position: absolute;
+    display: inline;
+    left: 3px;
+}
