@@ -4,7 +4,7 @@ $(function() {
 
         $.getJSON("js/lokale.json", function (data) {
                 lokale_json = data;
-                sort_lokale();
+                sort_lokale_postcode();
                 lokaleList();
         });
 
@@ -88,7 +88,7 @@ function getDetail(id) {
 
         createMap(id);
 
-        $('#website').attr("href", "http://" + getURL(id));
+       $('#website').html(getURL(id));
         //TO DO: Remove Website where there is no URL!
 }
 function createMap(id) {
@@ -97,7 +97,7 @@ function createMap(id) {
 
         var mapsUrl = "https://maps.googleapis.com/maps/api/staticmap?";
         var zoom = 14;
-        var size = "500x400";
+        var size = "320x400";
         var markers = "color:blue%7C" + lokale_json[id].latitude + "," + lokale_json[id].longitude;
         var maptype = "roadmap";
 
@@ -106,7 +106,7 @@ function createMap(id) {
 
 }
 
-function sort_lokale() {
+function sort_lokale_postcode() {
         lokale_json.sort(comparator);
 }
 
@@ -155,5 +155,10 @@ function getURL(id) {
                 finalURL = details.substr(url_start_position, Math.min.apply(Math, my_array));
         }
 
-        return finalURL;
+        if (finalURL.length > 1) {
+                return '<div><a id="website" href="http://' + finalURL + '" data-transition="fade" target="_blank">Restaurant Website</a></div>';
+        } else {
+                return null;
+        }
+
 }

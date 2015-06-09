@@ -9,8 +9,9 @@ detail view:
 
 1. back to overview button (or swipe) with correct listview refresh function
 2. parse website and display as proper link - done
-3. remove website link if there's no URL in details listed
+3. remove website link if there's no URL in details listed - done
 3. better, interactive map view
+4. if id is empty, return to overview
 
 nearby view:
 1. sort by distance to current GPS coordinates
