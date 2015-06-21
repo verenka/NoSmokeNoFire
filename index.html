@@ -15,15 +15,21 @@
   <script src="js/jquery.mobile-1.3.1.min.js"></script>
   <script src="js/codiqa.ext.min.js"></script>
   <script src="js/no_smoke.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjDlp3CM_KJUtE9rki56HXobAfoP735mA&libraries=geometry"></script>
 </head>
 <body>
+<!-- HOME PAGE - PLACES SORTED BY POSTCODE -->
   <div data-role="page" data-control-title="Home" id="home">
-      <div data-role="content">
-          <h1>
-              Nichtraucherlokale
-          </h1>
-          <a data-role="button" href="#closest">
+      <header>
+          <h1>Nichtraucherlokale</h1>
+      </header>
+      <main>
+          <div data-role="content">
+          <a data-role="button" href="#closest" id="list_by_distance">
               Lokale in der Nähe
+          </a>
+          <a data-role="button" href="#homework">
+              About
           </a>
           <h2>Restaurants nach PLZ</h2>
           <ul data-role="listview" data-filter="true" data-divider-theme="b" data-inset="true" id="lokalelist" data-autodividers="true">
@@ -31,34 +37,40 @@
                   Stadt
               </li>
           </ul>
-      </div>
+        </div>
+      </main>
   </div>
+
+<!-- PAGE PLACES SORTED BY DISTANCE -->
   <div data-role="page" data-control-title="closest" id="closest">
       <div data-role="content">
-          <h1>
+          <header><h1>
               Nächstgelegene Lokale
           </h1>
-          <a data-role="button" href="#home" data-icon="arrow-l" data-iconpos="left">
+          </header>
+          <main><a data-role="button" href="#home" data-icon="arrow-l" data-iconpos="left">
               zurück zur Übersicht
           </a>
-          <ul data-role="listview" data-divider-theme="b" data-inset="true">
-              <li data-theme="c">
-                  <a href="#detail" data-transition="slide">
+          <ul data-role="listview" id="list_view_distance" data-divider-theme="b" data-inset="true">
+              <li data-role="list-divider" role="heading">
                       Lokalname
                       <span class="ui-li-count">
-                          Lokaltyp
+                          Distanz
                       </span>
-                  </a>
               </li>
           </ul>
+          </main>
       </div>
   </div>
+
+<!-- DETAIL PAGE -->
   <div data-role="page" data-control-title="detail" id="detail">
       <div data-role="content">
-          <h2 id="rest_name">
+          <header><h2 id="rest_name">
               Name
           </h2>
-          <div id="address" data-controltype="htmlblock">
+          </header>
+          <main><div id="address" data-controltype="htmlblock">
               <p>
                   Address
               </p>
@@ -69,12 +81,11 @@
               </p>
           </div>
           <div id="website">
-              <!--<a id="website" href="" data-transition="fade" target="_blank">
-                  Restaurant Website
-              </a>-->
+              <!--Link is inserted via js-->
           </div>
           <div id="minimap" class="google-map" style="margin-left: auto; margin-right: auto">
           </div>
+          </main>
 
           <!-- script created by codiqa
                 will replace by static google map
@@ -116,5 +127,48 @@
           </script>-->
       </div>
   </div>
+<!-- PAGE FOR HTML5 Badges-->
+<div data-role="page" data-control-title="detail" id="homework">
+    <div data-role="content">
+        <header><h2 id="trans">
+            CSS 3 Transformation
+        </h2>
+        </header>
+        <main>
+            <section class="no_smoke">
+            <div class="wrap">
+                <div class="filter">
+                </div>
+                <div class="cig">
+                </div>
+                <div class="glow">
+                </div>
+            </div>
+            <div class="no">
+                <div class="cross1">
+                </div>
+                <div class="cross2">
+                </div>
+            </div>
+            </section>
+            <section>
+                <div class="multimedia">
+                    <audio controls>
+                    <source src="audio/wahwah.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </section>
+            <section>
+                <div class="my_badges">
+                    <a href="http://www.w3.org/html/logo/">
+                    <img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-device-graphics-multimedia-semantics-storage.png" width="293" height="64" alt="HTML5 Powered with CSS3 / Styling, Device Access, Graphics, 3D &amp; Effects, Multimedia, Semantics, and Offline &amp; Storage" title="HTML5 Powered with CSS3 / Styling, Device Access, Graphics, 3D &amp; Effects, Multimedia, Semantics, and Offline &amp; Storage">
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
 </body>
 </html>
